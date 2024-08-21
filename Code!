@@ -18,6 +18,17 @@ const player = "p"
 const red = "r"
 const space = "s"
 const green = "g"
+const blue = "b"
+const pink = "i"
+const gray = "a"
+const yellow = "y"
+
+const WrongRed = "u"
+const WrongGreen = "n"
+const WrongBlue = "l"
+const WrongPink = "d"
+const WrongGray = "q"
+const WrongYellow = "m"
 
 setLegend(
   [ player, bitmap`
@@ -131,7 +142,7 @@ afterInput(() => {
         if (level < levels.length) {
             setMap(levels[level]);
         } else {
-            addText("Congrats! you win!", { y: 4, color: color`7` });
+            addText("Yay! you win!", { y: 6, color: color`7` });
         }
     }
         if (greenFound.length >= 1) {
@@ -140,7 +151,7 @@ afterInput(() => {
         if (level < levels.length) {
             setMap(levels[level]);
         } else {
-            addText("Congrats! you win!", { y: 4, color: color`7` });
+            addText("Oh no! You lost!", { y: 6, color: color`7` });
         }
     }
 });
