@@ -1,0 +1,101 @@
+/*
+
+@title: Colors Game
+@author: Liana24601
+@tags: []
+@addedOn: 2024-00-00
+
+Description:
+
+Game Controls:
+W - Up
+S - Down
+A - Left
+D - Right
+*/
+
+const player = "p"
+const red = "r"
+
+setLegend(
+  [ player, bitmap`
+................
+................
+................
+................
+...75......75...
+...75.7775.75...
+.....777775.....
+....77777775....
+...7027702775...
+...7527752775...
+...7777777775...
+....77007775....
+.....777775.....
+......7775......
+......7.75......
+.....77.775.....` ],
+  [ red, bitmap`
+................
+.....3C...3C....
+......3C.3C.....
+......3C.3C.....
+.....333333C....
+.....C333C3C....
+.....333333C....
+.....3CCC33C....
+....33333333C...
+...3C333333C3C..
+...3C..33C..3C..
+...3C.3C.3C.3C..
+......3C.3C.....
+......3C.3C.....
+H.H.H.HCH3H.H.H.
+................`],
+)
+
+setSolids([])
+
+let level = 0
+const levels = [
+  map`
+.r....
+......
+....p.
+......`
+]
+
+setMap(levels[level])
+
+
+onInput("s", () => {
+  getFirst(player).y += 1
+})
+
+onInput("w", () => {
+  getFirst(player).y -= 1
+})
+
+onInput("d", () => {
+  getFirst(player).x += 1
+})
+
+onInput("a", () => {
+  getFirst(player).x -= 1
+})
+
+afterInput(() => {
+    const RedFound = tilesWith(player, red); 
+
+    const orangeFound = tilesWith(player, red); 
+
+    if (RedFound.length >= 1) {
+        level = level + 1;
+
+        if (level < levels.length) {
+            setMap(levels[level]);
+        } else {
+            addText("Congrats! you win!", { y: 4, color: color`4` });
+        }
+    }
+});
