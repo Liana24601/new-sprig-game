@@ -101,6 +101,8 @@ setLegend(
 0000000000000000`],
 )
 
+setBackground(space);
+
 setSolids([])
 
 let level = 0
