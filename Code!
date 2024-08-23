@@ -30,23 +30,27 @@ const WrongPink = "d"
 const WrongGray = "q"
 const WrongYellow = "m"
 
+const choose = "o"
+const rord = "x"
+const black = "k"
+
 setLegend(
   [ player, bitmap`
 ................
-..............2.
-....2...........
+................
+................
 ................
 ...75......75...
 ...75.7775.75...
 .....777775.....
 ....77777775....
 ...7027702775...
-.2.7527752775...
+...7527752775...
 ...7777777775...
 ....77007775....
 .....777775.....
 ......7775......
-......7075...2..
+......7075......
 .....770775.....` ],
   [ red, bitmap`
 0000000000000000
@@ -99,23 +103,117 @@ setLegend(
 0000020000000000
 0000000000000000
 0000000000000000`],
+  [ choose, bitmap`
+0000000000000000
+0000000000000000
+0000000000000000
+0220020022002002
+0202020200202022
+0202020200002200
+0220020200002020
+0200020200202002
+0200020022002002
+0000000000000000
+0222222222222222
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000`],
+  [ rord, bitmap`
+0000000000000000
+0000000000000000
+0000000000000000
+0002200222022000
+0002020200020200
+0002020220020200
+0002200200020200
+0002020200020200
+0002020222022000
+0000000000000000
+0002222222222200
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000`],
+  [ black, bitmap`
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000
+0000000000000000`],
 )
 
-setBackground(space);
-
-setSolids([])
+setBackground(black);
 
 let level = 0
 const levels = [
   map`
+......
+......
+......`,
+  map`
 grgggg
-ssssss
-ssssss
-s..pss`
+......
+......
+.ox.p.`,
+  map`
+ggggrg
+......
+......
+....p.`,
 ]
+
+let oops = 0
 
 setMap(levels[level])
 
+setMap(levels[0]) //starting map
+
+addText("Bob is a soldier in", { y: 1, color: color`7` });
+addText("the war of the", { y: 3, color: color`7` });
+addText("Aliens. Help him", { y: 5, color: color`7` });
+addText("attack the enemies!", { y: 7, color: color`7` });
+addText("But be careful!", { y: 9, color: color`7` });
+addText("The wrong color", { y: 11, color: color`7` });
+addText("alien can end him!", { y: 13, color: color`7` });
+addText("click 's' to start", { y: 15, color: color`6` });
+
+onInput("k", () => { //restart
+  clearText();
+  let oops = 0
+  setBackground(black);
+  setMap(levels[0])
+  level = 0;
+  
+  addText("Bob is a soldier in", { y: 1, color: color`7` });
+  addText("the war of the", { y: 3, color: color`7` });
+  addText("Aliens. Help him", { y: 5, color: color`7` });
+  addText("attack the enemies!", { y: 7, color: color`7` });
+  addText("But be careful!", { y: 9, color: color`7` });
+  addText("The wrong color", { y: 11, color: color`7` });
+  addText("alien can end him!", { y: 13, color: color`7` });
+  addText("click 's' to start", { y: 15, color: color`6` });
+});
+
+onInput("s", () => { //next level instructions
+  setMap(levels[1]);
+  level = level + 1;
+  clearText();
+  setBackground(space);
+});
 
 onInput("s", () => {
   getFirst(player).y += 1
@@ -134,26 +232,32 @@ onInput("a", () => {
 })
 
 afterInput(() => {
-    const RedFound = tilesWith(player, red); 
+  const RedFound = tilesWith(player, red); 
 
-    const greenFound = tilesWith(player, green); 
+  const greenFound = tilesWith(player, green); 
 
-    if (RedFound.length >= 1) {
-        level = level + 1;
+  if (RedFound.length >= 1) { //go to next level
+    level = level + 1;
 
-        if (level < levels.length) {
-            setMap(levels[level]);
-        } else {
-            addText("Yay! you win!", { y: 6, color: color`7` });
-        }
+    if (level < levels.length) { //next level
+      setMap(levels[level]);
+      clearText();
+    } else { //win game
+      addText("Yay! you win!", { y: 6, color: color`7` });
+      addText("Click 'k'", { y: 8, color: color`7` });
+      addText("to restart!", { y: 9, color: color`7` });
     }
-        if (greenFound.length >= 1) {
-        level = level + 1;
+  }
 
-        if (level < levels.length) {
-            setMap(levels[level]);
-        } else {
-            addText("Oh no! You lost!", { y: 6, color: color`7` });
-        }
+    if (greenFound.length >= 1) { //go to next level
+    oops = oops + 1;
+
+    if (oops = 1) { //next level
+      addText("Oh no!", { y: 6, color: color`7` });
+      addText("Bob died!", { y: 7, color: color`7` });
+      addText("Click 'k'", { y: 9, color: color`7` });
+      addText("to restart!", { y: 10, color: color`7` });
     }
+  }
+
 });
