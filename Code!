@@ -6,12 +6,26 @@
 @addedOn: 2024-00-00
 
 Description:
+I tutor little kids and I had the idea of building 
+a cute reto alien game to help them recognize and remember
+their colors. So I created this game, about an alien named
+Bob. Bob is a soldier in the war of the Aliens. The player
+has to walk up to and attack Bob's alien enemies. But they 
+have to choose the alien that is the color told to them by
+the instructions. Be careful because picking the wrong color
+alien could end Bob and make you lose the game!
+There are ___ levels to this game, and Bob's movements can 
+be controlled by the w, a, s, and d keys.
+
 
 Game Controls:
 W - Up
 S - Down
 A - Left
 D - Right
+
+S - Start the game (at the beginning)
+K - Restart the game
 */
 
 const player = "p"
@@ -31,6 +45,7 @@ const WrongGray = "q"
 const WrongYellow = "m"
 
 const choose = "o"
+const pick = "v"
 const rord = "x"
 const black = "k"
 
@@ -53,39 +68,39 @@ setLegend(
 ......7075......
 .....770775.....` ],
   [ red, bitmap`
-0000000000000000
-000003C0003C0000
-0020003C03C00000
-0000003C03C00000
-00000333333C0000
-00000C333C3C0000
-00000333333C0020
-000003CCC33C0000
-000033333333C000
-0003C333333C3C00
-0003C0033C003C00
-0003C03C03C03C00
-0000003C03C00000
-0200003C03C00000
-0000003C03C00000
-0000000000000000`],
+................
+.....3C...3C....
+......3C.3C.....
+......3C.3C.....
+.....333333C....
+.....C333C3C....
+.....333333C....
+.....3CCC33C....
+....33333333C...
+...3C333333C3C..
+...3C..33C..3C..
+...3C.3C.3C.3C..
+......3C.3C.....
+......3C.3C.....
+......3C.3C.....
+................`],
   [ green, bitmap`
-0000000000000000
-000004D0004D0000
-0020004D04D00000
-0000004D04D00000
-00000444444D0000
-00000D444D4D0000
-00000444444D0020
-000004DDD44D0000
-000044444444D000
-0004D444444D4D00
-0004D0044D004D00
-0004D04D04D04D00
-0000004D04D00000
-0200004D04D00000
-0000004D04D00000
-0000000000000000`],
+................
+.....4D...4D....
+......4D.4D.....
+......4D.4D.....
+.....444444D....
+.....D444D4D....
+.....444444D....
+.....4DDD44D....
+....44444444D...
+...4D444444D4D..
+...4D..44D..4D..
+...4D.4D.4D.4D..
+......4D.4D.....
+......4D.4D.....
+......4D.4D.....
+................`],
   [ space, bitmap`
 0000000000000000
 0000000000020000
@@ -106,35 +121,52 @@ setLegend(
   [ choose, bitmap`
 0000000000000000
 0000000000000000
+0222220002222220
+0220002000022000
+0220002000022000
+0220002000022000
+0220002000022000
+0220002000022000
+0222220000022000
+0220000000022000
+0220000000022000
+0220000000022000
+0220000000022000
+0220000002222220
 0000000000000000
-0220020022002002
-0202020200202022
-0202020200002200
-0220020200002020
-0200020200202002
-0200020022002002
-0000000000000000
-0222222222222222
+0000000000000000`],
+  [ pick, bitmap`
 0000000000000000
 0000000000000000
-0000000000000000
+0002222000220002
+0220000200220002
+0220000200220002
+0220000000220220
+0220000000220200
+0220000000222000
+0220000000220200
+0220000000220220
+0220000000220002
+0220000200220002
+0220000200220002
+0002222000220002
 0000000000000000
 0000000000000000`],
   [ rord, bitmap`
 0000000000000000
 0000000000000000
-0000000000000000
-0002200222022000
-0002020200020200
-0002020220020200
-0002200200020200
-0002020200020200
-0002020222022000
-0000000000000000
-0002222222222200
-0000000000000000
-0000000000000000
-0000000000000000
+0200000000000000
+0202200222022000
+0202020200020200
+0202020220020200
+0202200200020200
+0202020200020200
+0202020222022000
+0220000000000000
+0222222222222200
+0220000000000000
+0220000000000000
+0220000000000000
 0000000000000000
 0000000000000000`],
   [ black, bitmap`
@@ -154,23 +186,78 @@ setLegend(
 0000000000000000
 0000000000000000
 0000000000000000`],
+  
+  [ WrongGreen, bitmap`
+................
+.....4D...4D....
+......4D.4D.....
+......4D.4D.....
+.....444444D....
+.....544454D....
+.....444444D....
+.....4DDD44D....
+....44444444D...
+...4D444444D4D..
+...4D..44D..4D..
+...4D.4D.4D.4D..
+......4D.4D.....
+......4D.4D.....
+......4D.4D.....
+................`],
+  [ WrongRed, bitmap`
+................
+.....3C...3C....
+......3C.3C.....
+......3C.3C.....
+.....333333C....
+.....533353C....
+.....333333C....
+.....3CCC33C....
+....33333333C...
+...3C333333C3C..
+...3C..33C..3C..
+...3C.3C.3C.3C..
+......3C.3C.....
+......3C.3C.....
+......3C.3C.....
+................`],
+  [ WrongBlue, bitmap`
+................
+.....75...75....
+......75.75.....
+......75.75.....
+.....7777775....
+.....3777375....
+.....7777775....
+.....7555775....
+....777777775...
+...75777777575..
+...75..775..75..
+...75.75.75.75..
+......75.75.....
+......75.75.....
+......75.75.....
+................`],
 )
 
 setBackground(black);
 
+clearText();
+
 let level = 0
+
 const levels = [
   map`
 ......
 ......
 ......`,
   map`
-grgggg
+nrnnnn
 ......
-......
-.ox.p.`,
+.ov...
+....p.`,
   map`
-ggggrg
+nnnnrn
 ......
 ......
 ....p.`,
@@ -208,9 +295,9 @@ onInput("k", () => { //restart
   addText("click 's' to start", { y: 15, color: color`6` });
 });
 
-onInput("s", () => { //next level instructions
+onInput("s", () => { //next
   setMap(levels[1]);
-  level = level + 1;
+  level = level + 1
   clearText();
   setBackground(space);
 });
@@ -234,7 +321,9 @@ onInput("a", () => {
 afterInput(() => {
   const RedFound = tilesWith(player, red); 
 
-  const greenFound = tilesWith(player, green); 
+  const WrongGreenFound = tilesWith(player, WrongGreen); 
+
+  const WrongRedFound = tilesWith(player, WrongRed); 
 
   if (RedFound.length >= 1) { //go to next level
     level = level + 1;
@@ -242,22 +331,63 @@ afterInput(() => {
     if (level < levels.length) { //next level
       setMap(levels[level]);
       clearText();
-    } else { //win game
+    } else { //win
+      setMap(levels[0]);
+      setBackground(space);
       addText("Yay! you win!", { y: 6, color: color`7` });
       addText("Click 'k'", { y: 8, color: color`7` });
       addText("to restart!", { y: 9, color: color`7` });
     }
   }
 
-    if (greenFound.length >= 1) { //go to next level
+    if (WrongGreenFound.length >= 1) { //lose
     oops = oops + 1;
-
-    if (oops = 1) { //next level
+      
+    if (oops = 1) { //loser haha
+      setMap(levels[0]);
+      setBackground(black);
       addText("Oh no!", { y: 6, color: color`7` });
       addText("Bob died!", { y: 7, color: color`7` });
       addText("Click 'k'", { y: 9, color: color`7` });
       addText("to restart!", { y: 10, color: color`7` });
     }
+
+  }
+
+});
+
+afterInput(() => {
+
+  const WrongBlueFound = tilesWith(player, WrongBlue); 
+
+    if (WrongBlueFound.length >= 1) { //lose
+    oops = oops + 1;
+      
+    if (oops = 1) { //loser haha
+      setMap(levels[0]);
+      setBackground(black);
+      addText("Oh no!", { y: 6, color: color`7` });
+      addText("Bob died!", { y: 7, color: color`7` });
+      addText("Click 'k'", { y: 9, color: color`7` });
+      addText("to restart!", { y: 10, color: color`7` });
+    }
+
+  }
+
+  const WrongRedFound = tilesWith(player, WrongRed); 
+
+    if (WrongRedFound.length >= 1) { //lose
+    oops = oops + 1;
+      
+    if (oops = 1) { //loser haha
+      setMap(levels[0]);
+      setBackground(black);
+      addText("Oh no!", { y: 6, color: color`7` });
+      addText("Bob died!", { y: 7, color: color`7` });
+      addText("Click 'k'", { y: 9, color: color`7` });
+      addText("to restart!", { y: 10, color: color`7` });
+    }
+
   }
 
 });
