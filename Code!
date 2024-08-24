@@ -47,6 +47,14 @@ const WrongYellow = "m"
 const choose = "o"
 const pick = "v"
 const rord = "x"
+const GreenWordOne = "w"
+const GreenWordTwo = "f"
+const BlueWordOne = "t"
+const BlueWordTwo = "e"
+const PinkWordOne = "h"
+const PinkWordTwo = "c"
+const YellowWordOne = "j"
+const YellowWordTwo = "z"
 const black = "k"
 
 setLegend(
@@ -155,18 +163,18 @@ setLegend(
   [ rord, bitmap`
 0000000000000000
 0000000000000000
-0200000000000000
-0202200222022000
-0202020200020200
-0202020220020200
-0202200200020200
-0202020200020200
-0202020222022000
-0220000000000000
-0222222222222200
-0220000000000000
-0220000000000000
-0220000000000000
+0222002222022000
+0200202000020200
+0200202000020020
+0200202000020020
+0200202000020020
+0200202220020020
+0222002000020020
+0200202000020020
+0200202000020020
+0200202000020020
+0200202000020200
+0200202222022000
 0000000000000000
 0000000000000000`],
   [ black, bitmap`
@@ -255,11 +263,11 @@ const levels = [
 nrnnnn
 ......
 .ov...
-....p.`,
+..x.p.`,
   map`
 nnnnrn
 ......
-......
+.ov...
 ....p.`,
 ]
 
