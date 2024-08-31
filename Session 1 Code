@@ -1,0 +1,47 @@
+/*
+
+@title: Colors Game
+@author: Liana24601
+@tags: []
+@addedOn: 2024-00-00
+
+Description:
+I tutor little kids and I had the idea of building 
+a cute reto alien game to help them recognize and remember
+their colors. So I created this game, about an alien named
+Bob. Bob is a soldier in the war of the Aliens. The player
+has to walk up to and attack Bob's alien enemies. But they 
+have to choose the alien that is the color told to them by
+the instructions. Be careful because picking the wrong color
+alien could end Bob and make you lose the game!
+There are 26 levels to this game, and Bob's movements can 
+be controlled by the w, a, s, and d keys.
+(Also, sorry if it's too easy, it's meant to be for tiny
+children.)
+
+Game Controls:
+W - Up
+S - Down
+A - Left
+D - Right
+
+l - Start the game (at the beginning)
+K - Restart the game
+
+*/
+
+const player = "p"
+const red = "r"
+const space = "s"
+const green = "g"
+const blue = "b"
+const pink = "i"
+const RedWordTwo = "a"
+const yellow = "y"
+
+const WrongRed = "u"
+const WrongGreen = "n"
+const WrongBlue = "l"
+const WrongPink = "d"
+const WrongGray = "q"
+const WrongYellow = "m"
